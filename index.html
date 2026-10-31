@@ -1,0 +1,10 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order</title>
+<style>body{background:#111;color:#ddd;font:16px -apple-system,sans-serif;display:flex;height:100vh;align-items:center;justify-content:center;margin:0}</style></head>
+<body><div id="m">กำลังเปิด Order…</div>
+<script>
+// ลิงก์ถาวร → ไปลิงก์ cloudflared ล่าสุด (แอป Order อัปเดต link.json ทุกครั้งที่เปิด); รหัสอยู่ใน #k=… ไม่ถูกส่งออกไปที่ใด
+(async()=>{const h=new URLSearchParams(location.hash.slice(1)).get('k');if(h){try{localStorage.setItem('k',h)}catch(e){}history.replaceState(null,'',location.pathname)}
+let k='';try{k=localStorage.getItem('k')||''}catch(e){}
+try{const r=await fetch('https://api.github.com/repos/ProgramZa2560/order/contents/link.json?t='+Date.now(),{cache:'no-store'});const j=JSON.parse(atob((await r.json()).content));
+if(!j.url)throw 0;location.replace(j.url+'/'+(k?'?k='+encodeURIComponent(k):''))}catch(e){document.getElementById('m').textContent='ยังไม่มีลิงก์ — เปิดแอป Order ที่เครื่องก่อน'}})()
+</script></body></html>
